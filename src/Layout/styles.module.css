@@ -21,12 +21,22 @@
 
 .Notes {
   grid-area: notes;
-  text-align: center;
 }
 
 .Tags {
   grid-area: tags;
+}
+
+.Tags h3 {
   text-align: right;
+}
+
+.Notes h3 {
+  text-align: center;
+}
+
+.Item:hover > h3 {
+  border-bottom: 3px solid var(--white);
 }
 
 @media screen and (max-width: 780px) {
