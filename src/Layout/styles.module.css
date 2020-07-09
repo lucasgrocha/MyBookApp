@@ -1,0 +1,42 @@
+:root {
+  --gap: 10px;
+}
+
+.Grid {
+  display: grid;
+  gap: var(--gap);
+  grid-template-areas: "books notes tags";
+  border: 1px red solid;
+  grid-template-columns: 1fr 2fr 1.5fr;
+}
+
+.Grid > div {
+  padding: 10px;
+  border: 1px red solid;
+}
+
+.Books {
+  grid-area: books;
+}
+
+.Notes {
+  grid-area: notes;
+  text-align: center;
+}
+
+.Tags {
+  grid-area: tags;
+  text-align: right;
+}
+
+@media screen and (max-width: 780px) {
+  .Grid {
+    grid-template-areas: "notes" "books" "tags";
+    grid-template-columns: 1fr;
+    border: none;
+  }
+
+  .Grid div > h3 {
+    text-align: center;
+  }
+}
