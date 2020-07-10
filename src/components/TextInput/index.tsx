@@ -16,7 +16,7 @@ const TextInput: React.FC<Props> = (props) => {
     if (userInput.length > 0) {
       setUserInput("");
 
-      !!props.submitAction && props.submitAction();
+      !!props.submitAction && props.submitAction(userInput);
     }
   };
 
