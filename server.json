@@ -39,7 +39,7 @@
   "tags": [
     {
       "id": 1,
-      "name": "Sci-fi",
+      "name": "Scifi",
       "color": "red"
     },
     {
@@ -51,6 +51,10 @@
       "id": 3,
       "name": "Magic",
       "color": "blue"
+    },{
+      "id": 4,
+      "name": "Fantasy",
+      "color": "purple"
     }
   ]
 }
