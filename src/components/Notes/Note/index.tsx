@@ -1,6 +1,7 @@
 import React from "react";
 import { Title, Summary, NoteBox } from "./styles";
 import Tags from "../../Tags";
+import { TextDocumentInverted as TextIcon } from '@styled-icons/entypo'
 
 interface NoteProps {
   id: number;
@@ -14,9 +15,13 @@ const Note: React.FC<NoteProps> = (props) => {
   return (
     <NoteBox style={{ marginBottom: "10px" }}>
       <Title>{props.read}</Title>
+      <div>
+        <TextIcon style={{width: '10px', fill: 'yellow' }} />
       <Summary>
         <small>{props.summary}</small>
       </Summary>
+      </div>
+      <Tags ids={props.tags} />
     </NoteBox>
   );
 };

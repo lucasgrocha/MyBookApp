@@ -1,10 +1,11 @@
 import styled from "styled-components";
-
 export const Title = styled.h4`
   
 `
 
 export const Summary = styled.span`
+  display: inline-block;
+  margin-bottom: 10px;
   margin-left: 5px;
 `
 
