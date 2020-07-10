@@ -19,6 +19,11 @@ export const Info = styled.div`
   > div {
     margin-left: 10px;
   }
+
+  @media screen and (max-width: 700px) {
+    width: 60%;
+    margin: auto auto;
+  }
 `
 
 export const Cover = styled.img`
