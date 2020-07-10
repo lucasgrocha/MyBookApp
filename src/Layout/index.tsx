@@ -3,6 +3,7 @@ import classes from "./styles.module.css";
 import styled from "styled-components";
 import Books from '../components/Books'
 import Tags from '../components/Tags'
+import Notes from '../components/Notes'
 
 const StyledTitle = styled.h3`
   border-bottom: 3px solid transparent;
@@ -18,12 +19,7 @@ const Layout = () => (
     </div>
     <div className={[classes.Notes, classes.Item].join(" ")}>
       <StyledTitle>Notes</StyledTitle>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis quia
-        placeat sit. Similique voluptatibus assumenda harum praesentium maxime
-        blanditiis error asperiores eum debitis! Earum culpa placeat voluptas
-        tempore. Saepe, nulla!
-      </p>
+      <Notes />
     </div>
     <div className={[classes.Tags, classes.Item].join(" ")}>
       <StyledTitle>Tags</StyledTitle>

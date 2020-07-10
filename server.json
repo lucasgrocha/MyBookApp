@@ -33,7 +33,16 @@
       "read": "I read from page 6 to 10",
       "summary": "A charpter about the Harry and him friends",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus, ligula at semper facilisis, purus nulla accumsan purus, at elementum massa eros ut urna. Aliquam ut aliquet lectus. Morbi non dolor vitae dolor feugiat tincidunt. Cras faucibus sed purus et fringilla. Nullam at nunc turpis. Donec nec eleifend elit, tristique ornare mi. Mauris felis purus, bibendum ac mi ac, pellentesque interdum turpis. Praesent eleifend orci id quam convallis, at vulputate felis ultricies.",
+      "book_id": 1,
       "tags": [1, 3]
+    },
+    {
+      "id": 2,
+      "read": "I read from page 80 to 120",
+      "summary": "A charpter about the Harry",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus, ligula at semper facilisis, purus nulla accumsan purus, at elementum massa eros ut urna. Aliquam ut aliquet lectus. Morbi non dolor vitae dolor feugiat tincidunt. Cras faucibus sed purus et fringilla. Nullam at nunc turpis. Donec nec eleifend elit, tristique ornare mi. Mauris felis purus, bibendum ac mi ac, pellentesque interdum turpis. Praesent eleifend orci id quam convallis, at vulputate felis ultricies.",
+      "book_id": 2,
+      "tags": [2, 4]
     }
   ],
   "tags": [
