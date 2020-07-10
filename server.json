@@ -2,9 +2,15 @@
   "books": [
     {
       "id": 1,
-      "title": "Harry Poter",
+      "title": "Harry Potter",
       "author": "Someone",
       "image_url": "https://bit.ly/3iJIZaR"
+    },
+    {
+      "id": 2,
+      "title": "Les Misérables",
+      "author": "Victor Hugo",
+      "image_url": "https://bit.ly/3emE4cN"
     }
   ],
   "rates": [
@@ -13,6 +19,12 @@
       "point": 4,
       "message": "Pretty nice book!",
       "book_id": 1
+    },
+    {
+      "id": 2,
+      "point": 5,
+      "message": "Pretty nice book!",
+      "book_id": 2
     }
   ],
   "notes": [
