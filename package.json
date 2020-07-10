@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@styled-icons/boxicons-solid": "^10.6.0",
     "@styled-icons/entypo": "^10.7.0",
     "@styled-icons/evaicons-solid": "^10.6.0",
     "@testing-library/jest-dom": "^4.2.4",

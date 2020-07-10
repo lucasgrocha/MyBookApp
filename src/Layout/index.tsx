@@ -23,7 +23,7 @@ const Layout = () => (
     </div>
     <div className={[classes.Tags, classes.Item].join(" ")}>
       <StyledTitle>Tags</StyledTitle>
-      <Tags />
+      <Tags hasInput />
     </div>
   </div>
 );
