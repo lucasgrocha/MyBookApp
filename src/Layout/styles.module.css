@@ -7,7 +7,7 @@
   gap: var(--gap);
   grid-template-areas: "books notes tags";
   border: 1px red solid;
-  grid-template-columns: 1fr 2fr 1.5fr;
+  grid-template-columns: 1.5fr 2fr 0.7fr;
 }
 
 .Grid > div {
