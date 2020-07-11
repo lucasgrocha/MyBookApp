@@ -11,7 +11,7 @@ interface Props {
 
 const Book: React.FC<Props> = (props) => {
   return (
-    <Info>
+    <Info style={{marginBottom: '10px'}}>
       <Cover src={props.image_url} alt={props.title} />
       <div>
         <Title title={props.title}>{props.title}</Title>

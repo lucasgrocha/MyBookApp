@@ -13,7 +13,7 @@ interface NoteProps {
 
 const Note: React.FC<NoteProps> = (props) => {
   return (
-    <NoteBox style={{ marginBottom: "10px" }}>
+    <NoteBox>
       <Title>{props.read}</Title>
       <Summary>
       <TextIcon style={{width: '10px', fill: 'yellow' }} />

@@ -24,6 +24,11 @@ export default createGlobalStyle`
     background: var(--primary);
   }
 
+  body {
+    width: 90%;
+    margin: auto;
+  }
+
   :root {
     --primary: #04061c;
     --white: #D9D9D9;

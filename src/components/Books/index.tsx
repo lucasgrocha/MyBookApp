@@ -19,7 +19,7 @@ const Books = () => {
   }, []);
 
   return (
-    <div>
+    <>
       {books?.map((book) => (
         <Book
           id={book.id}
@@ -29,7 +29,7 @@ const Books = () => {
           image_url={book.image_url}
         />
       ))}
-    </div>
+    </>
   );
 };
 

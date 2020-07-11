@@ -10,10 +10,8 @@ interface TitleProps {
 
 export const Info = styled.div`
   display: flex;
-  border: 1px solid red;
   width: 100%;
-  margin-bottom: 10px;
-  padding: 5px;
+  padding: 8px 5px;
   position: relative;
 
   > div {
@@ -29,7 +27,7 @@ export const Info = styled.div`
 export const Cover = styled.img`
   width: 50px;
   height: 80px;
-  border: 1px solid white;
+  box-shadow: 3px 3px 2px 1px rgba(0,0,0,0.63);
 `
 
 export const Title = styled.h4<TitleProps>`

@@ -4,7 +4,7 @@ import { Star } from '@styled-icons/evaicons-solid'
 import styled from 'styled-components';
 
 export const StyledStart = styled(Star)`
-  width: 12px;
+  width: 15px;
   fill: yellow;
 `;
 
