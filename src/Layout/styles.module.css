@@ -6,23 +6,16 @@
   display: grid;
   gap: var(--gap);
   grid-template-areas: "books notes tags";
-  /* border: 1px red solid; */
   grid-template-columns: 1.5fr 2fr 0.7fr;
   background-color: #474747;
 }
 
 .Grid > div {
   padding: 10px;
-  /* border: 1px red solid; */
 }
 
 .Books {
   grid-area: books;
-}
-
-.Books > div, .Notes > div, .Tags > div {
-  background-color: rgb(126, 126, 126);
-  border-radius: 5px;
 }
 
 .Notes {
@@ -31,6 +24,11 @@
 
 .Tags {
   grid-area: tags;
+}
+
+.Books > div, .Tags > div, .Notes > div:not(:last-child) {
+  background-color: rgb(126, 126, 126);
+  border-radius: 5px;
 }
 
 .Tags h3 {
