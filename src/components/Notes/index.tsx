@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../../service/api";
+import api from "../../services/api";
 import Note from "./Note";
 
 interface Note {

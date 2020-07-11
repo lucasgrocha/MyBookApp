@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import api from "../../service/api";
+import api from "../../services/api";
 import Tag from "./Tag";
 import TextInput from "../TextInput";
-import TagsService from '../../service/TagsService'
+import Tagsservices from '../../services/TagsService'
 
 interface Tag {
   id: number;
@@ -35,7 +35,7 @@ const Tags: React.FC<Props> = (props) => {
       {tags?.map((tag) => (
         <Tag color={tag.color} id={tag.id} name={tag.name} key={tag.id} />
       ))}
-      {props.hasInput && <TextInput submitAction={TagsService.create} />}
+      {props.hasInput && <TextInput submitAction={Tagsservices.create} />}
     </div>
   );
 };

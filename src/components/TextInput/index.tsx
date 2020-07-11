@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Input, Button, SendIcon } from "./styles";
+import * as crypto from "crypto";
 
 interface Props {
-  submitAction?: (arg1?: any) => void;
+  submitAction?: (...args: any) => void;
 }
 
 const TextInput: React.FC<Props> = (props) => {
@@ -16,7 +17,11 @@ const TextInput: React.FC<Props> = (props) => {
     if (userInput.length > 0) {
       setUserInput("");
 
-      !!props.submitAction && props.submitAction(userInput);
+      !!props.submitAction &&
+        props.submitAction(
+          userInput,
+          `#${crypto.randomBytes(3).toString("hex")}`
+        )
     }
   };
 
