@@ -1,10 +1,9 @@
 import React from "react";
 import classes from "./styles.module.css";
 import styled from "styled-components";
-import Books from "../components/Books";
-import Tags from "../components/Tags";
-import Notes from "../components/Notes";
-import AddNote from "../components/Notes/AddNote";
+import Books from "../../components/Books";
+import Tags from "../../components/Tags";
+import Notes from "../../components/Notes";
 
 const StyledTitle = styled.h3`
   border-bottom: 3px solid transparent;
