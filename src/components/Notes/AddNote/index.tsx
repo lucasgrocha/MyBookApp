@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { AddBlock, AddIcon } from "./styles";
-import AddNoteModal from "./AddNoteModal";
 import Backdrop from "../../../components/Backdrop";
 
 const AddNote = () => {
@@ -15,13 +14,6 @@ const AddNote = () => {
       <AddBlock onClick={handleClick}>
         <AddIcon />
       </AddBlock>
-
-      {clicked && (
-        <>
-          <AddNoteModal />
-          <Backdrop clicked={handleClick} />
-        </>
-      )}
     </>
   );
 };
