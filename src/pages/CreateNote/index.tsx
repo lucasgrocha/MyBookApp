@@ -1,5 +1,6 @@
 import React, { FormEvent, useState, useEffect } from "react";
 import NotesService from "../../services/NotesService";
+import { useParams } from "react-router-dom";
 import {
   InputField,
   StyledForm,
@@ -10,6 +11,7 @@ import {
 } from "./styles";
 
 const CreateNote = () => {
+  const { bookId } = useParams();
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
   const [read, setRead] = useState("");
@@ -17,16 +19,45 @@ const CreateNote = () => {
     read: "",
     summary: "",
     description: "",
+    book_id: bookId,
   });
 
   useEffect(() => {
-    setFormData({ read: read, description: description, summary: summary });
-  }, [read, description, summary]);
+    setFormData((prevState) => ({ ...prevState, read }));
+  }, [read]);
 
-  const handleSubmit = (evt: FormEvent) => {
+  useEffect(() => {
+    setFormData((prevState) => ({ ...prevState, summary }));
+  }, [summary]);
+
+  useEffect(() => {
+    setFormData((prevState) => ({ ...prevState, description }));
+  }, [description]);
+
+  useEffect(() => {
+    console.log(formData);
+  }, [read, summary, description]);
+
+  const handleSubmit = async (evt: FormEvent) => {
     evt.preventDefault();
 
-    NotesService.create(formData);
+    if (invalidData()) {
+      return;
+    }
+
+    const response = await NotesService.create(formData);
+
+    if (response.status === 201) {
+      cleanUpInputs();
+    }
+  };
+
+  const invalidData = () => Object.values(formData).includes("");
+
+  const cleanUpInputs = () => {
+    setDescription("");
+    setRead("");
+    setSummary("");
   };
 
   const handleReadInput = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,15 +78,22 @@ const CreateNote = () => {
     <StyledForm onSubmit={handleSubmit}>
       <StyledHeader>About what you read</StyledHeader>
       <Field>
-        <InputField type="text" placeholder="Read" onChange={handleReadInput} />
+        <InputField
+          type="text"
+          placeholder="Read"
+          value={read}
+          onChange={handleReadInput}
+        />
         <InputField
           type="text"
           placeholder="Summary"
+          value={summary}
           onChange={handleSummaryInput}
         />
       </Field>
       <DescriptionInput
         placeholder="Description"
+        value={description}
         onChange={handleDescriptionInput}
       />
       <SubmitButton type="submit">Save</SubmitButton>

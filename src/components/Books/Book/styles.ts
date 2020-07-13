@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 interface AuthorProps {
   authorName: string;
@@ -8,11 +9,14 @@ interface TitleProps {
   title: string;
 }
 
-export const Info = styled.div`
+export const StyledLink = styled(Link)`
   display: flex;
   width: 100%;
   padding: 8px 5px;
+  text-decoration: none;
   position: relative;
+  background-color: rgb(126, 126, 126);
+  border-radius: 5px;
 
   > div {
     margin-left: 10px;

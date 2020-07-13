@@ -26,7 +26,7 @@ const Tags: React.FC<Props> = (props) => {
       }).then((response) => {
         setTags(response.data);
       });
-  }, []);
+  }, [props.ids]);
 
   if (!tags) return null;
 

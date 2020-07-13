@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api";
 import Note from "./Note";
-import AddNote from "./AddNote";
 
 interface Note {
   id: number;
@@ -33,7 +32,6 @@ const Notes = () => {
         />
       ))}
 
-      <AddNote />
     </>
   );
 };

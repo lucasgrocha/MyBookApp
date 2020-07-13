@@ -8,7 +8,7 @@ export default function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/createNote" element={<CreateNote />} />
+        <Route path="/createNote/:bookId" element={<CreateNote />} />
       </Routes>
     </BrowserRouter>
   );
