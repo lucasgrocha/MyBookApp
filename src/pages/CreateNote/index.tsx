@@ -1,6 +1,6 @@
 import React, { FormEvent, useState, useEffect } from "react";
 import NotesService from "../../services/NotesService";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   InputField,
   StyledForm,
@@ -11,6 +11,8 @@ import {
 } from "./styles";
 
 const CreateNote = () => {
+  const navigate = useNavigate();
+
   const { bookId } = useParams();
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
@@ -45,10 +47,17 @@ const CreateNote = () => {
       return;
     }
 
+    function redirectToRoot() {
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 500);
+    }
+
     const response = await NotesService.create(formData);
 
     if (response.status === 201) {
       cleanUpInputs();
+      redirectToRoot();
     }
   };
 
