@@ -9,6 +9,16 @@ import {
   SubmitButton,
   StyledHeader,
 } from "./styles";
+import TagsSelector from "./TagsSelector";
+import TagsService from "../../services/TagsService";
+
+interface FormData {
+  read: string;
+  summary: string;
+  description: string;
+  book_id: number;
+  tags: number[];
+}
 
 const CreateNote = () => {
   const navigate = useNavigate();
@@ -17,16 +27,38 @@ const CreateNote = () => {
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
   const [read, setRead] = useState("");
-  const [formData, setFormData] = useState({
+  const [tags, setTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const [formData, setFormData] = useState<FormData>({
     read: "",
     summary: "",
     description: "",
-    book_id: bookId,
+    book_id: Number(bookId),
+    tags: [],
   });
+
+  useEffect(() => {
+    TagsService.index().then((response) => {
+      setTags(response.data);
+    });
+  }, []);
+
+  const handleSelectedTag = (tagId: number) => {
+    if (!selectedTags?.includes(tagId)) {
+      setSelectedTags((prevState) => [...prevState, tagId]);
+    } else {
+      const newArr = [...selectedTags].filter((tag_id) => tag_id !== tagId);
+      setSelectedTags(newArr);
+    }
+  };
 
   useEffect(() => {
     setFormData((prevState) => ({ ...prevState, read }));
   }, [read]);
+
+  useEffect(() => {
+    setFormData((prevState) => ({ ...prevState, tags: selectedTags }));
+  }, [selectedTags]);
 
   useEffect(() => {
     setFormData((prevState) => ({ ...prevState, summary }));
@@ -37,8 +69,9 @@ const CreateNote = () => {
   }, [description]);
 
   useEffect(() => {
-    console.log(formData);
-  }, [read, summary, description]);
+    console.clear();
+    console.table(formData);
+  }, [read, summary, description, selectedTags]);
 
   const handleSubmit = async (evt: FormEvent) => {
     evt.preventDefault();
@@ -105,6 +138,11 @@ const CreateNote = () => {
         value={description}
         onChange={handleDescriptionInput}
       />
+        <TagsSelector
+          tags={tags}
+          selectedTags={selectedTags}
+          clicked={handleSelectedTag}
+        />
       <SubmitButton type="submit">Save</SubmitButton>
     </StyledForm>
   );
