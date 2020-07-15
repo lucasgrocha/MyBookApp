@@ -27,7 +27,7 @@ const RatingPoint: React.FC<Props> = (props) => {
     api.get(`http://localhost:3333/rates?book_id=${props.bookId}`).then(response => {
       setRates(response.data)
     })
-  }, [])
+  }, [props.bookId])
 
   if (!rates) return null
 

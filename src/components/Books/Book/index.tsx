@@ -1,5 +1,5 @@
 import React from "react";
-import { Author, Cover, Info, Title } from "./styles";
+import { Author, Cover, StyledLink, Title } from "./styles";
 import RatingPoint from "./RatingPoint";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 const Book: React.FC<Props> = (props) => {
   return (
-    <Info style={{marginBottom: '10px'}}>
+    <StyledLink to={`createNote/${props.id}`} style={{ marginBottom: "10px" }}>
       <Cover src={props.image_url} alt={props.title} />
       <div>
         <Title title={props.title}>{props.title}</Title>
@@ -27,7 +27,7 @@ const Book: React.FC<Props> = (props) => {
       >
         <RatingPoint bookId={props.id} />
       </div>
-    </Info>
+    </StyledLink>
   );
 };
 

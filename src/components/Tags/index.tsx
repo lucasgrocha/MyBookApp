@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../../services/api";
 import Tag from "./Tag";
 import TextInput from "../TextInput";
-import Tagsservices from '../../services/TagsService'
+import TagsServices from '../../services/TagsService'
 
 interface Tag {
   id: number;
@@ -26,7 +26,7 @@ const Tags: React.FC<Props> = (props) => {
       }).then((response) => {
         setTags(response.data);
       });
-  }, []);
+  }, [props.ids]);
 
   if (!tags) return null;
 
@@ -35,7 +35,7 @@ const Tags: React.FC<Props> = (props) => {
       {tags?.map((tag) => (
         <Tag color={tag.color} id={tag.id} name={tag.name} key={tag.id} />
       ))}
-      {props.hasInput && <TextInput submitAction={Tagsservices.create} />}
+      {props.hasInput && <TextInput submitAction={TagsServices.create} />}
     </div>
   );
 };
