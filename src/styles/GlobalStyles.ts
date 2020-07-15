@@ -5,8 +5,6 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
-    color: var(--white);
   }
 
   html, border-style, #root {
@@ -25,7 +23,6 @@ export default createGlobalStyle`
   }
 
   body {
-    width: 90%;
     margin: auto;
   }
 

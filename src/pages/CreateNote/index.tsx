@@ -1,16 +1,10 @@
 import React, { FormEvent, useState, useEffect } from "react";
 import NotesService from "../../services/NotesService";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  InputField,
-  StyledForm,
-  Field,
-  DescriptionInput,
-  SubmitButton,
-  StyledHeader,
-} from "./styles";
+import { FormBox, StyledForm } from "./styles";
 import TagsSelector from "./TagsSelector";
 import TagsService from "../../services/TagsService";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
 interface FormData {
   read: string;
@@ -117,34 +111,59 @@ const CreateNote = () => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <StyledHeader>About what you read</StyledHeader>
-      <Field>
-        <InputField
-          type="text"
-          placeholder="Read"
-          value={read}
-          onChange={handleReadInput}
-        />
-        <InputField
-          type="text"
-          placeholder="Summary"
-          value={summary}
-          onChange={handleSummaryInput}
-        />
-      </Field>
-      <DescriptionInput
-        placeholder="Description"
-        value={description}
-        onChange={handleDescriptionInput}
-      />
+    <FormBox>
+      <StyledForm onSubmit={handleSubmit}>
+        <Container>
+          <Row>
+            <Col md={6} xl={6}>
+              <Form.Group>
+                <Form.Label>Read</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Write about what you read"
+                  value={read}
+                  onChange={handleReadInput}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6} xl={6}>
+              <Form.Group>
+                <Form.Label>Summary</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Write some summary"
+                  value={summary}
+                  onChange={handleSummaryInput}
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            <Col style={{ marginTop: "20px" }}>
+              <Form.Group>
+                <Form.Label>Write the description</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  value={description}
+                  onChange={handleDescriptionInput}
+                  rows={5}
+                  placeholder="It was an amazing chapter..."
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+        </Container>
         <TagsSelector
           tags={tags}
           selectedTags={selectedTags}
           clicked={handleSelectedTag}
         />
-      <SubmitButton type="submit">Save</SubmitButton>
-    </StyledForm>
+        <Button type="submit">Save</Button>
+      </StyledForm>
+    </FormBox>
   );
 };
 
