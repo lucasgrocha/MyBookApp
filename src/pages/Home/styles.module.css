@@ -5,9 +5,9 @@
 .Grid {
   display: grid;
   gap: var(--gap);
-  grid-template-areas: "books notes tags";
-  grid-template-columns: 1.5fr 2fr 0.7fr;
-  background-color: #474747;
+  grid-template-areas: "books notes" "tags notes";
+  grid-template-columns: 1.5fr 2fr;
+  background-color: var(--primary);
 }
 
 .Grid > div {

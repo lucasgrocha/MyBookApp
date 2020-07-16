@@ -10,7 +10,7 @@ export const StyledForm = styled.form`
 export const FormBox = styled.div`
   border-radius: 5px;
   overflow: hidden;
-  background-color: #f4f3f3;
+  background-color: var(--whitesmoke);
 
   @media screen and (max-width: 768px) {
     height: 100vh;

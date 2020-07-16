@@ -13,10 +13,15 @@ export const StyledLink = styled(Link)`
   display: flex;
   width: 100%;
   padding: 8px 5px;
-  text-decoration: none;
+  color: black;
   position: relative;
   background-color: rgb(126, 126, 126);
   border-radius: 5px;
+
+  &:hover {
+    text-decoration: none;
+    color: black;
+  }
 
   > div {
     margin-left: 10px;
