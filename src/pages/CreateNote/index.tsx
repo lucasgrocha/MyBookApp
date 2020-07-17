@@ -5,6 +5,7 @@ import { FormBox, StyledForm } from "./styles";
 import TagsSelector from "./TagsSelector";
 import TagsService from "../../services/TagsService";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import Spinner from '../../components/UI/Spinner'
 
 interface FormData {
   read: string;
@@ -109,6 +110,10 @@ const CreateNote = () => {
   ) => {
     setDescription(evt.target.value);
   };
+
+  if (tags.length === 0) {
+    return <Spinner />
+  }
 
   return (
     <FormBox>
