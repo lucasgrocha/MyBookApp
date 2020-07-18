@@ -1,5 +1,10 @@
-import axios from 'axios'
+import axios from "axios";
+import axiosRetry from "axios-retry";
 
-export default axios.create({
-  baseURL: 'http://localhost:3333'
-})
+const axiosReq = axios.create({
+  baseURL: "http://localhost:3333",
+});
+
+axiosRetry(axiosReq, { retries: 5, retryDelay: axiosRetry.exponentialDelay });
+
+export default axiosReq;
