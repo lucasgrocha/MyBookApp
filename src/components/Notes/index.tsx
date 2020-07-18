@@ -8,6 +8,7 @@ interface Note {
   summary: string;
   description: string;
   tags: number[];
+  book_id: number;
 }
 
 const Notes = () => {
@@ -29,6 +30,7 @@ const Notes = () => {
           summary={note.summary}
           description={note.description}
           key={note.id}
+          book_id={note.book_id}
         />
       ))}
 

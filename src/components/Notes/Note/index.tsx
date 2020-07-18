@@ -1,26 +1,30 @@
 import React from "react";
-import { Title, Summary, NoteBox } from "./styles";
+import { Title, Summary, StyledLink } from "./styles";
 import Tags from "../../Tags";
-import { TextDocumentInverted as TextIcon } from '@styled-icons/entypo'
+import { TextDocumentInverted as TextIcon } from "@styled-icons/entypo";
 
 interface NoteProps {
   id: number;
   read: string;
   summary: string;
   description: string;
+  book_id: number;
   tags: number[];
 }
 
+
 const Note: React.FC<NoteProps> = (props) => {
   return (
-    <NoteBox>
-      <Title>{props.read}</Title>
-      <Summary>
-      <TextIcon style={{width: '10px', fill: 'yellow' }} />
-        <small>{props.summary}</small>
-      </Summary>
-      <Tags ids={props.tags} />
-    </NoteBox>
+    <StyledLink to={{pathname: "editNote"}} state={{...props}}>
+      <div>
+        <Title>{props.read}</Title>
+        <Summary>
+          <TextIcon style={{ width: "10px", fill: "yellow" }} />
+          <small>{props.summary}</small>
+        </Summary>
+        <Tags ids={props.tags} />
+      </div>
+    </StyledLink>
   );
 };
 
