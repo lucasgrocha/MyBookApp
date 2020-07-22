@@ -6,13 +6,20 @@ import TagsSelector from "./TagsSelector";
 import TagsService from "../../services/TagsService";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import Spinner from '../../components/UI/Spinner'
+import firebaseSerializer from "../../helper/firebaseSerializer";
 
 interface FormData {
   read: string;
   summary: string;
   description: string;
   book_id: number;
-  tags: number[];
+  tags: string[];
+}
+
+interface Tag {
+  id: string;
+  name: string;
+  color: string;
 }
 
 const CreateNote = () => {
@@ -22,8 +29,8 @@ const CreateNote = () => {
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
   const [read, setRead] = useState("");
-  const [tags, setTags] = useState([]);
-  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [formData, setFormData] = useState<FormData>({
     read: "",
     summary: "",
@@ -34,11 +41,13 @@ const CreateNote = () => {
 
   useEffect(() => {
     TagsService.index().then((response) => {
-      setTags(Object.values(response.data));
+      setTags(firebaseSerializer(response.data));
     });
   }, []);
 
-  const handleSelectedTag = (tagId: number) => {
+  const handleSelectedTag = (tagId: string) => {
+    console.log(tagId)
+
     if (!selectedTags?.includes(tagId)) {
       setSelectedTags((prevState) => [...prevState, tagId]);
     } else {
