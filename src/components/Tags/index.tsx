@@ -19,12 +19,12 @@ const Tags: React.FC<Props> = (props) => {
   const [tags, setTags] = useState<Tag[]>();
 
   useEffect(() => {
-    api.get("/tags", {
+    api.get("/tags.json", {
         params: {
           id: props.ids,
         },
       }).then((response) => {
-        setTags(response.data);
+        setTags(Object.values(response.data));
       });
   }, [props.ids]);
 

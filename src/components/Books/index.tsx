@@ -13,8 +13,8 @@ const Books = () => {
   const [books, setBooks] = useState<Books[]>();
 
   useEffect(() => {
-    api.get("/books").then((response) => {
-      setBooks(response.data);
+    api.get("/books.json").then((response) => {
+      setBooks(Object.values(response.data));
     });
   }, []);
 

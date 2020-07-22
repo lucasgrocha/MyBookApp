@@ -4,7 +4,7 @@ import Tags from "../../Tags";
 import { TextDocumentInverted as TextIcon } from "@styled-icons/entypo";
 
 interface NoteProps {
-  id: number;
+  id: string;
   read: string;
   summary: string;
   description: string;

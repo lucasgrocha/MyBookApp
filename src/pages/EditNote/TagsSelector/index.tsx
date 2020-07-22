@@ -12,6 +12,7 @@ interface Props {
 }
 
 const TagsSelector: React.FC<Props> = (props) => {
+
   return (
     <div
       style={{
@@ -24,7 +25,7 @@ const TagsSelector: React.FC<Props> = (props) => {
       {props.tags.map((tag) => (
         <TagButton
           key={tag.id}
-          color={props.selectedTags.includes(tag.id) ? "black" : tag.color}
+          color={props.selectedTags?.includes(tag.id) ? "black" : tag.color}
           onClick={() => props.clicked(tag.id)}
         >
           {tag.name}

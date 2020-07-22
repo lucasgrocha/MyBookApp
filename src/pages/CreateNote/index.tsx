@@ -34,7 +34,7 @@ const CreateNote = () => {
 
   useEffect(() => {
     TagsService.index().then((response) => {
-      setTags(response.data);
+      setTags(Object.values(response.data));
     });
   }, []);
 
@@ -78,12 +78,12 @@ const CreateNote = () => {
     function redirectToRoot() {
       setTimeout(() => {
         navigate("/", { replace: true });
-      }, 500);
+      }, 300);
     }
 
     const response = await NotesService.create(formData);
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       cleanUpInputs();
       redirectToRoot();
     }

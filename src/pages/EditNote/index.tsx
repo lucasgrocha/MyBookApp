@@ -15,7 +15,7 @@ interface FormData {
   tags: number[];
 }
 
-const CreateNote = () => {
+const EditNote = () => {
   const navigate = useNavigate();
 
   const [passedProps] = useState(window.history.state.usr);
@@ -36,7 +36,7 @@ const CreateNote = () => {
 
   useEffect(() => {
     TagsService.index().then((response) => {
-      setTags(response.data);
+      setTags(Object.values(response.data));
     });
   }, []);
 
@@ -68,6 +68,7 @@ const CreateNote = () => {
   useEffect(() => {
     console.clear();
     console.table(formData);
+    console.log(id)
   }, [read, summary, description, selectedTags]);
 
   const handleSubmit = async (evt: FormEvent) => {
@@ -174,4 +175,4 @@ const CreateNote = () => {
   );
 };
 
-export default CreateNote;
+export default EditNote;

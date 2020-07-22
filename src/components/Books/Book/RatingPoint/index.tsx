@@ -24,7 +24,7 @@ const RatingPoint: React.FC<Props> = (props) => {
   const [rates, setRates] = useState<Rate[]>()
 
   useEffect(() => {
-    api.get(`http://localhost:3333/rates?book_id=${props.bookId}`).then(response => {
+    api.get(`/rates.json?book_id=${props.bookId}`).then(response => {
       setRates(response.data)
     })
   }, [props.bookId])

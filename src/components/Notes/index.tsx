@@ -3,7 +3,7 @@ import api from "../../services/api";
 import Note from "./Note";
 
 interface Note {
-  id: number;
+  id: string;
   read: string;
   summary: string;
   description: string;
@@ -15,8 +15,16 @@ const Notes = () => {
   const [notes, setNotes] = useState<Note[]>();
 
   useEffect(() => {
-    api.get("/notes").then((response) => {
-      setNotes(response.data);
+    api.get("/notes.json").then((response) => {
+      let responseNotes: Note[] = Object.values(response.data);
+      const keys = Object.keys(response.data);
+
+      for (let index in keys) {
+        const objKey = keys[index];
+        responseNotes[index].id = objKey;
+      }
+
+      setNotes(responseNotes);
     });
   }, []);
 
@@ -33,7 +41,6 @@ const Notes = () => {
           book_id={note.book_id}
         />
       ))}
-
     </>
   );
 };
