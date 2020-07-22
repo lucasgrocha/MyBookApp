@@ -2,10 +2,10 @@ import React from "react";
 import { TagButton } from "./styles";
 
 interface Props {
-  clicked: (arg1: number) => void;
-  selectedTags: number[];
+  clicked: (arg1: string) => void;
+  selectedTags: string[];
   tags: {
-    id: number;
+    id: string;
     name: string;
     color: string;
   }[];

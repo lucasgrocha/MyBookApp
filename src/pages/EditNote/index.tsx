@@ -6,13 +6,20 @@ import TagsSelector from "./TagsSelector";
 import TagsService from "../../services/TagsService";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import Spinner from "../../components/UI/Spinner";
+import firebaseSerializer from "../../helper/firebaseSerializer";
 
 interface FormData {
   read: string;
   summary: string;
   description: string;
   book_id: number;
-  tags: number[];
+  tags: string[];
+}
+
+interface Tag {
+  id: string;
+  name: string;
+  color: string;
 }
 
 const EditNote = () => {
@@ -24,8 +31,8 @@ const EditNote = () => {
   const [summary, setSummary] = useState(passedProps.summary);
   const [description, setDescription] = useState(passedProps.description);
   const [read, setRead] = useState(passedProps.read);
-  const [tags, setTags] = useState([]);
-  const [selectedTags, setSelectedTags] = useState<number[]>(passedProps.tags);
+  const [tags, setTags] = useState<Tag[]>();
+  const [selectedTags, setSelectedTags] = useState<string[]>(passedProps.tags || []);
   const [formData, setFormData] = useState<FormData>({
     read: "",
     summary: "",
@@ -36,11 +43,11 @@ const EditNote = () => {
 
   useEffect(() => {
     TagsService.index().then((response) => {
-      setTags(Object.values(response.data));
+      setTags(firebaseSerializer(response.data));
     });
   }, []);
 
-  const handleSelectedTag = (tagId: number) => {
+  const handleSelectedTag = (tagId: string) => {
     if (!selectedTags?.includes(tagId)) {
       setSelectedTags((prevState) => [...prevState, tagId]);
     } else {
@@ -68,7 +75,6 @@ const EditNote = () => {
   useEffect(() => {
     console.clear();
     console.table(formData);
-    console.log(id)
   }, [read, summary, description, selectedTags]);
 
   const handleSubmit = async (evt: FormEvent) => {
@@ -114,7 +120,7 @@ const EditNote = () => {
     setDescription(evt.target.value);
   };
 
-  if (tags.length === 0) {
+  if (tags?.length === 0) {
     return <Spinner />;
   }
 
@@ -164,11 +170,13 @@ const EditNote = () => {
             </Col>
           </Row>
         </Container>
-        <TagsSelector
-          tags={tags}
-          selectedTags={selectedTags}
-          clicked={handleSelectedTag}
-        />
+        {!!tags ? (
+          <TagsSelector
+            tags={tags}
+            selectedTags={selectedTags}
+            clicked={handleSelectedTag}
+          />
+        ) : null}
         <Button type="submit">Save</Button>
       </StyledForm>
     </FormBox>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api";
 import Note from "./Note";
+import firebaseSerializer from "../../helper/firebaseSerializer";
 
 interface Note {
   id: string;
@@ -16,15 +17,7 @@ const Notes = () => {
 
   useEffect(() => {
     api.get("/notes.json").then((response) => {
-      let responseNotes: Note[] = Object.values(response.data);
-      const keys = Object.keys(response.data);
-
-      for (let index in keys) {
-        const objKey = keys[index];
-        responseNotes[index].id = objKey;
-      }
-
-      setNotes(responseNotes);
+      setNotes(firebaseSerializer(response.data));
     });
   }, []);
 

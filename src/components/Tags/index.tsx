@@ -3,9 +3,10 @@ import api from "../../services/api";
 import Tag from "./Tag";
 import TextInput from "../TextInput";
 import TagsServices from '../../services/TagsService'
+import firebaseSerializer from "../../helper/firebaseSerializer";
 
 interface Tag {
-  id: number;
+  id: string;
   name: string;
   color: string;
 }
@@ -24,7 +25,8 @@ const Tags: React.FC<Props> = (props) => {
           id: props.ids,
         },
       }).then((response) => {
-        setTags(Object.values(response.data));
+        console.log(firebaseSerializer(response.data))
+        setTags(firebaseSerializer(response.data));
       });
   }, [props.ids]);
 
