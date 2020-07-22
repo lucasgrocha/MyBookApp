@@ -11,6 +11,7 @@ export default function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/createNote/:bookId" element={<CreateNote />} />
         <Route path="/editNote" element={<EditNote />} />
+        <Route path="*" element={<p>Not found</p>} />
       </Routes>
     </BrowserRouter>
   );
