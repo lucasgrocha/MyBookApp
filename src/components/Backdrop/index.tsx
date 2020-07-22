@@ -7,7 +7,11 @@ interface Props {
 }
 
 const Backdrop: React.FC<Props> = (props) => {
-  return <StyledBackdrop onClick={props.clicked} />;
+  return (
+    <StyledBackdrop onClick={props.clicked}>
+      {props.children}
+    </StyledBackdrop>
+  );
 };
 
 export default Backdrop;

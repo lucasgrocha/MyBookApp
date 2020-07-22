@@ -9,4 +9,5 @@ export const StyledBackdrop = styled.div`
   width: 100vw;
   background-color: black;
   opacity: 0.6;
+  z-index: 1;
 `;

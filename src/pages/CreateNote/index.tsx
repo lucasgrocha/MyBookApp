@@ -5,8 +5,9 @@ import { FormBox, StyledForm } from "./styles";
 import TagsSelector from "./TagsSelector";
 import TagsService from "../../services/TagsService";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import Spinner from '../../components/UI/Spinner'
+import Spinner from "../../components/UI/Spinner";
 import firebaseSerializer from "../../helper/firebaseSerializer";
+import Loading from "../../components/UI/Loading";
 
 interface FormData {
   read: string;
@@ -38,6 +39,7 @@ const CreateNote = () => {
     book_id: Number(bookId),
     tags: [],
   });
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     TagsService.index().then((response) => {
@@ -46,7 +48,7 @@ const CreateNote = () => {
   }, []);
 
   const handleSelectedTag = (tagId: string) => {
-    console.log(tagId)
+    console.log(tagId);
 
     if (!selectedTags?.includes(tagId)) {
       setSelectedTags((prevState) => [...prevState, tagId]);
@@ -84,10 +86,10 @@ const CreateNote = () => {
       return;
     }
 
+    setSubmitted(true);
+
     function redirectToRoot() {
-      setTimeout(() => {
-        navigate("/", { replace: true });
-      }, 300);
+      navigate("/", { replace: true });
     }
 
     const response = await NotesService.create(formData);
@@ -121,63 +123,67 @@ const CreateNote = () => {
   };
 
   if (tags.length === 0) {
-    return <Spinner />
+    return <Spinner />;
   }
 
   return (
-    <FormBox>
-      <StyledForm onSubmit={handleSubmit}>
-        <Container>
-          <Row>
-            <Col md={6} xl={6}>
-              <Form.Group>
-                <Form.Label>Read</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Write about what you read"
-                  value={read}
-                  onChange={handleReadInput}
-                  required
-                />
-              </Form.Group>
-            </Col>
-            <Col md={6} xl={6}>
-              <Form.Group>
-                <Form.Label>Summary</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Write some summary"
-                  value={summary}
-                  onChange={handleSummaryInput}
-                  required
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-          <Row>
-            <Col style={{ marginTop: "20px" }}>
-              <Form.Group>
-                <Form.Label>Write the description</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  value={description}
-                  onChange={handleDescriptionInput}
-                  rows={5}
-                  placeholder="It was an amazing chapter..."
-                  required
-                />
-              </Form.Group>
-            </Col>
-          </Row>
-        </Container>
-        <TagsSelector
-          tags={tags}
-          selectedTags={selectedTags}
-          clicked={handleSelectedTag}
-        />
-        <Button type="submit">Save</Button>
-      </StyledForm>
-    </FormBox>
+    <>
+      <FormBox>
+        <StyledForm onSubmit={handleSubmit}>
+          <Container>
+            <Row>
+              <Col md={6} xl={6}>
+                <Form.Group>
+                  <Form.Label>Read</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Write about what you read"
+                    value={read}
+                    onChange={handleReadInput}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6} xl={6}>
+                <Form.Group>
+                  <Form.Label>Summary</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Write some summary"
+                    value={summary}
+                    onChange={handleSummaryInput}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col style={{ marginTop: "20px" }}>
+                <Form.Group>
+                  <Form.Label>Write the description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    value={description}
+                    onChange={handleDescriptionInput}
+                    rows={5}
+                    placeholder="It was an amazing chapter..."
+                    required
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Container>
+          <TagsSelector
+            tags={tags}
+            selectedTags={selectedTags}
+            clicked={handleSelectedTag}
+          />
+          <Button type="submit">Save</Button>
+        </StyledForm>
+      </FormBox>
+
+      {submitted && <Loading />}
+    </>
   );
 };
 

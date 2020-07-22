@@ -7,6 +7,7 @@ import TagsService from "../../services/TagsService";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import Spinner from "../../components/UI/Spinner";
 import firebaseSerializer from "../../helper/firebaseSerializer";
+import Loading from "../../components/UI/Loading";
 
 interface FormData {
   read: string;
@@ -40,6 +41,7 @@ const EditNote = () => {
     book_id: Number(bookId),
     tags: [],
   });
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     TagsService.index().then((response) => {
@@ -84,10 +86,10 @@ const EditNote = () => {
       return;
     }
 
+    setSubmitted(true)
+
     function redirectToRoot() {
-      setTimeout(() => {
         navigate("/", { replace: true });
-      }, 500);
     }
 
     const response = await NotesService.update(formData, id);
@@ -120,11 +122,14 @@ const EditNote = () => {
     setDescription(evt.target.value);
   };
 
-  if (tags?.length === 0) {
+  console.log(tags)
+
+  if (!tags) {
     return <Spinner />;
   }
 
   return (
+    <>
     <FormBox>
       <StyledForm onSubmit={handleSubmit}>
         <Container>
@@ -180,6 +185,8 @@ const EditNote = () => {
         <Button type="submit">Save</Button>
       </StyledForm>
     </FormBox>
+    { submitted && <Loading />}
+    </>
   );
 };
 
