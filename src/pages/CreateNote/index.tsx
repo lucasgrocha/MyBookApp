@@ -48,8 +48,6 @@ const CreateNote = () => {
   }, []);
 
   const handleSelectedTag = (tagId: string) => {
-    console.log(tagId);
-
     if (!selectedTags?.includes(tagId)) {
       setSelectedTags((prevState) => [...prevState, tagId]);
     } else {
