@@ -8,7 +8,7 @@ interface Note {
   read: string;
   summary: string;
   description: string;
-  tags: number[];
+  tags: string[];
   book_id: number;
 }
 

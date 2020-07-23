@@ -75,7 +75,7 @@ const EditNote = () => {
   }, [description]);
 
   useEffect(() => {
-    console.clear();
+    // console.clear();
     console.table(formData);
   }, [read, summary, description, selectedTags]);
 

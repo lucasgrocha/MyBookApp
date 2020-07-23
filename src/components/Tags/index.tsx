@@ -13,7 +13,7 @@ interface Tag {
 }
 
 interface Props {
-  ids?: number[];
+  ids?: string[];
   hasInput?: boolean;
 }
 

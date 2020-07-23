@@ -9,7 +9,7 @@ interface NoteProps {
   summary: string;
   description: string;
   book_id: number;
-  tags: number[];
+  tags: string[];
 }
 
 
