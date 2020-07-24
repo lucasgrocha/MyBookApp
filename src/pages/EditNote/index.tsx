@@ -3,11 +3,11 @@ import NotesService from "../../services/NotesService";
 import { useNavigate } from "react-router-dom";
 import { FormBox, StyledForm } from "./styles";
 import TagsSelector from "./TagsSelector";
-import TagsService from "../../services/TagsService";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import Spinner from "../../components/UI/Spinner";
 import firebaseSerializer from "../../helper/firebaseSerializer";
 import Loading from "../../components/UI/Loading";
+import firebase from '../../firebase'
 
 interface FormData {
   read: string;
@@ -44,9 +44,11 @@ const EditNote = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    TagsService.index().then((response) => {
-      setTags(firebaseSerializer(response.data));
-    });
+    const tagsRef = firebase.database().ref("tags");
+    tagsRef.on("value", (snap) => {
+      const serialized = firebaseSerializer(snap.val());
+      setTags(serialized)
+    })
   }, []);
 
   const handleSelectedTag = (tagId: string) => {
