@@ -72,10 +72,10 @@ const CreateNote = () => {
     setFormData((prevState) => ({ ...prevState, description }));
   }, [description]);
 
-  useEffect(() => {
-    // console.clear();
-    console.table(formData);
-  }, [read, summary, description, selectedTags]);
+  // useEffect(() => {
+  //   // console.clear();
+  //   console.table(formData);
+  // }, [read, summary, description, selectedTags]);
 
   const handleSubmit = async (evt: FormEvent) => {
     evt.preventDefault();
