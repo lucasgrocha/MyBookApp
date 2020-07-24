@@ -20,14 +20,14 @@ const Tags: React.FC<Props> = (props) => {
   const [tags, setTags] = useState<Tag[]>();
 
   useEffect(() => {
-    const tagsRef = firebase.database().ref("tags");
-    tagsRef.on("value", (snap) => {
-      const serialized = firebaseSerializer(snap.val());
-      const filteredByKey: any[] = serialized.filter((data) =>
-        props.ids?.includes(data.id)
-      );
-      setTags(!props.ids ? serialized : filteredByKey);
-    });
+      const tagsRef = firebase.database().ref("tags");
+      tagsRef.on("value", (snap) => {
+        const serialized = firebaseSerializer(snap.val());
+        const filteredByKey: any[] = serialized.filter((data) =>
+          props.ids?.includes(data.id)
+        );
+        setTags(!props.ids ? serialized : filteredByKey);
+      });
   }, [props.ids]);
 
   if (!tags) return null;
