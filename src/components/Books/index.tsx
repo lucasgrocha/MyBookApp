@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import api from "../../services/api";
 import Book from "./Book";
+import firebaseSerializer from "../../helper/firebaseSerializer";
+import firebase from "../../firebase";
 
 interface Books {
   id: number;
@@ -13,8 +14,10 @@ const Books = () => {
   const [books, setBooks] = useState<Books[]>();
 
   useEffect(() => {
-    api.get("/books.json").then((response) => {
-      setBooks(Object.values(response.data));
+    const booksRef = firebase.database().ref("books");
+    booksRef.on("value", (snap) => {
+      const serialized = firebaseSerializer(snap.val());
+      setBooks(serialized);
     });
   }, []);
 
