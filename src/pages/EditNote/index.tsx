@@ -124,8 +124,6 @@ const EditNote = () => {
     setDescription(evt.target.value);
   };
 
-  console.log(tags)
-
   if (!tags) {
     return <Spinner />;
   }
