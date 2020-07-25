@@ -1,22 +1,30 @@
-import React, { FormEvent, useState, useEffect } from "react";
+import React, { FormEvent, useState, useEffect, useContext } from "react";
 import NotesService from "../../services/NotesService";
 import { useNavigate } from "react-router-dom";
 import { FormBox, StyledForm } from "./styles";
 import TagsSelector from "./TagsSelector";
-import TagsService from "../../services/TagsService";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import Spinner from "../../components/UI/Spinner";
+import Loading from "../../components/UI/Loading";
+import dataLoaderContext from "../../context/dataLoaderContext";
 
 interface FormData {
   read: string;
   summary: string;
   description: string;
   book_id: number;
-  tags: number[];
+  tags: string[];
 }
 
-const CreateNote = () => {
+interface Tag {
+  id: string;
+  name: string;
+  color: string;
+}
+
+const EditNote = () => {
   const navigate = useNavigate();
+  const dataContext = useContext(dataLoaderContext)
 
   const [passedProps] = useState(window.history.state.usr);
   const { id } = passedProps;
@@ -24,8 +32,8 @@ const CreateNote = () => {
   const [summary, setSummary] = useState(passedProps.summary);
   const [description, setDescription] = useState(passedProps.description);
   const [read, setRead] = useState(passedProps.read);
-  const [tags, setTags] = useState([]);
-  const [selectedTags, setSelectedTags] = useState<number[]>(passedProps.tags);
+  const [tags] = useState<Tag[]>(dataContext.tags as Tag[]);
+  const [selectedTags, setSelectedTags] = useState<string[]>(passedProps.tags || []);
   const [formData, setFormData] = useState<FormData>({
     read: "",
     summary: "",
@@ -33,14 +41,9 @@ const CreateNote = () => {
     book_id: Number(bookId),
     tags: [],
   });
+  const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    TagsService.index().then((response) => {
-      setTags(response.data);
-    });
-  }, []);
-
-  const handleSelectedTag = (tagId: number) => {
+  const handleSelectedTag = (tagId: string) => {
     if (!selectedTags?.includes(tagId)) {
       setSelectedTags((prevState) => [...prevState, tagId]);
     } else {
@@ -65,10 +68,10 @@ const CreateNote = () => {
     setFormData((prevState) => ({ ...prevState, description }));
   }, [description]);
 
-  useEffect(() => {
-    console.clear();
-    console.table(formData);
-  }, [read, summary, description, selectedTags]);
+  // useEffect(() => {
+  //   // console.clear();
+  //   console.table(formData);
+  // }, [read, summary, description, selectedTags]);
 
   const handleSubmit = async (evt: FormEvent) => {
     evt.preventDefault();
@@ -77,10 +80,10 @@ const CreateNote = () => {
       return;
     }
 
+    setSubmitted(true)
+
     function redirectToRoot() {
-      setTimeout(() => {
         navigate("/", { replace: true });
-      }, 500);
     }
 
     const response = await NotesService.update(formData, id);
@@ -113,11 +116,12 @@ const CreateNote = () => {
     setDescription(evt.target.value);
   };
 
-  if (tags.length === 0) {
+  if (!tags) {
     return <Spinner />;
   }
 
   return (
+    <>
     <FormBox>
       <StyledForm onSubmit={handleSubmit}>
         <Container>
@@ -163,15 +167,19 @@ const CreateNote = () => {
             </Col>
           </Row>
         </Container>
-        <TagsSelector
-          tags={tags}
-          selectedTags={selectedTags}
-          clicked={handleSelectedTag}
-        />
+        {!!tags ? (
+          <TagsSelector
+            tags={tags}
+            selectedTags={selectedTags}
+            clicked={handleSelectedTag}
+          />
+        ) : null}
         <Button type="submit">Save</Button>
       </StyledForm>
     </FormBox>
+    { submitted && <Loading />}
+    </>
   );
 };
 
-export default CreateNote;
+export default EditNote;

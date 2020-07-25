@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import api from "../../services/api";
 import Book from "./Book";
 
 interface Books {
@@ -9,14 +8,17 @@ interface Books {
   image_url: string;
 }
 
-const Books = () => {
+interface Props {
+  data: {}[];
+}
+
+const Books: React.FC<Props> = (props) => {
   const [books, setBooks] = useState<Books[]>();
 
   useEffect(() => {
-    api.get("/books").then((response) => {
-      setBooks(response.data);
-    });
-  }, []);
+    const castedData = props.data as Books[];
+    setBooks(castedData);
+  }, [props.data]);
 
   return (
     <>

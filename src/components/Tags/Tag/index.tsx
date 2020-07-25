@@ -2,7 +2,7 @@ import React from 'react'
 import { TagName } from './styles'
 
 interface TagProps {
-  id: number;
+  id: string;
   name: string;
   color: string;
 }

@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import api from '../../../../services/api'
-import { Star } from '@styled-icons/evaicons-solid'
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import { Star } from "@styled-icons/evaicons-solid";
+import styled from "styled-components";
+import firebaseSerializer from "../../../../helper/firebaseSerializer";
+import firebase from "../../../../firebase";
 
 export const StyledStart = styled(Star)`
   width: 15px;
   fill: yellow;
 `;
-
 
 interface Props {
   bookId: number;
@@ -21,27 +21,29 @@ interface Rate {
 }
 
 const RatingPoint: React.FC<Props> = (props) => {
-  const [rates, setRates] = useState<Rate[]>()
-
+  const [rates, setRates] = useState<Rate>();
   useEffect(() => {
-    api.get(`http://localhost:3333/rates?book_id=${props.bookId}`).then(response => {
-      setRates(response.data)
-    })
-  }, [props.bookId])
+    const ratesRef = firebase.database().ref("rates");
+    ratesRef
+      .orderByChild("book_id")
+      .equalTo(props.bookId)
+      .on("value", (snap) => {
+        const serialized = firebaseSerializer(
+          snap.val().filter((data: any) => data !== null)
+        );
+        setRates(serialized[0]);
+      });
+  }, [props.bookId]);
 
-  if (!rates) return null
+  if (!rates) return null;
 
-  let stars = []
+  let stars = [];
 
-  for(let c = 0; c < rates[0].point; c++) {
-    stars.push(<StyledStart key={c} />)
+  for (let c = 0; c < rates.point; c++) {
+    stars.push(<StyledStart key={c} />);
   }
 
-  return (
-    <>
-      {stars}
-    </>
-  )
-}
+  return <>{stars}</>;
+};
 
-export default RatingPoint
+export default RatingPoint;

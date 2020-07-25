@@ -2,16 +2,17 @@ import React from "react";
 import { TagButton } from "./styles";
 
 interface Props {
-  clicked: (arg1: number) => void;
-  selectedTags: number[];
+  clicked: (arg1: string) => void;
+  selectedTags: string[];
   tags: {
-    id: number;
+    id: string;
     name: string;
     color: string;
   }[];
 }
 
 const TagsSelector: React.FC<Props> = (props) => {
+
   return (
     <div
       style={{
@@ -24,7 +25,7 @@ const TagsSelector: React.FC<Props> = (props) => {
       {props.tags.map((tag) => (
         <TagButton
           key={tag.id}
-          color={props.selectedTags.includes(tag.id) ? "black" : tag.color}
+          color={props.selectedTags?.includes(tag.id) ? "black" : tag.color}
           onClick={() => props.clicked(tag.id)}
         >
           {tag.name}

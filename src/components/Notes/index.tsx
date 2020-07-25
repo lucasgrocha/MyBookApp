@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
-import api from "../../services/api";
 import Note from "./Note";
 
 interface Note {
-  id: number;
+  id: string;
   read: string;
   summary: string;
   description: string;
-  tags: number[];
+  tags: string[];
   book_id: number;
 }
 
-const Notes = () => {
-  const [notes, setNotes] = useState<Note[]>();
+interface Props {
+  data: {}[];
+}
+
+const Notes: React.FC<Props> = (props) => {
+  const [notes, setNotes] = useState<Note[]>([]);
 
   useEffect(() => {
-    api.get("/notes").then((response) => {
-      setNotes(response.data);
-    });
-  }, []);
+    const castedData = props.data as Note[];
+    setNotes(castedData);
+  }, [props.data]);
 
   return (
     <>
@@ -33,7 +35,6 @@ const Notes = () => {
           book_id={note.book_id}
         />
       ))}
-
     </>
   );
 };
