@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Note from "./Note";
-import firebaseSerializer from "../../helper/firebaseSerializer";
-import firebase from "../../firebase";
 
 interface Note {
   id: string;
@@ -12,16 +10,17 @@ interface Note {
   book_id: number;
 }
 
-const Notes = () => {
-  const [notes, setNotes] = useState<Note[]>();
+interface Props {
+  data: {}[];
+}
+
+const Notes: React.FC<Props> = (props) => {
+  const [notes, setNotes] = useState<Note[]>([]);
 
   useEffect(() => {
-    const notesRef = firebase.database().ref("notes");
-    notesRef.on("value", (snap) => {
-      const serialized = firebaseSerializer(snap.val());
-      setNotes(serialized);
-    });
-  }, []);
+    const castedData = props.data as Note[];
+    setNotes(castedData);
+  }, [props.data]);
 
   return (
     <>

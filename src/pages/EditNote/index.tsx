@@ -1,13 +1,12 @@
-import React, { FormEvent, useState, useEffect } from "react";
+import React, { FormEvent, useState, useEffect, useContext } from "react";
 import NotesService from "../../services/NotesService";
 import { useNavigate } from "react-router-dom";
 import { FormBox, StyledForm } from "./styles";
 import TagsSelector from "./TagsSelector";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import Spinner from "../../components/UI/Spinner";
-import firebaseSerializer from "../../helper/firebaseSerializer";
 import Loading from "../../components/UI/Loading";
-import firebase from '../../firebase'
+import dataLoaderContext from "../../context/dataLoaderContext";
 
 interface FormData {
   read: string;
@@ -25,6 +24,7 @@ interface Tag {
 
 const EditNote = () => {
   const navigate = useNavigate();
+  const dataContext = useContext(dataLoaderContext)
 
   const [passedProps] = useState(window.history.state.usr);
   const { id } = passedProps;
@@ -32,7 +32,7 @@ const EditNote = () => {
   const [summary, setSummary] = useState(passedProps.summary);
   const [description, setDescription] = useState(passedProps.description);
   const [read, setRead] = useState(passedProps.read);
-  const [tags, setTags] = useState<Tag[]>();
+  const [tags] = useState<Tag[]>(dataContext.tags as Tag[]);
   const [selectedTags, setSelectedTags] = useState<string[]>(passedProps.tags || []);
   const [formData, setFormData] = useState<FormData>({
     read: "",
@@ -42,14 +42,6 @@ const EditNote = () => {
     tags: [],
   });
   const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    const tagsRef = firebase.database().ref("tags");
-    tagsRef.on("value", (snap) => {
-      const serialized = firebaseSerializer(snap.val());
-      setTags(serialized)
-    })
-  }, []);
 
   const handleSelectedTag = (tagId: string) => {
     if (!selectedTags?.includes(tagId)) {
@@ -123,8 +115,6 @@ const EditNote = () => {
   ) => {
     setDescription(evt.target.value);
   };
-
-  console.log(tags)
 
   if (!tags) {
     return <Spinner />;

@@ -31,7 +31,6 @@ const RatingPoint: React.FC<Props> = (props) => {
         const serialized = firebaseSerializer(
           snap.val().filter((data: any) => data !== null)
         );
-        console.log(serialized);
         setRates(serialized[0]);
       });
   }, [props.bookId]);

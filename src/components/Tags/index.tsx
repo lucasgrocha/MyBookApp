@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import Tag from "./Tag";
 import TextInput from "../TextInput";
 import TagsServices from "../../services/TagsService";
-import firebaseSerializer from "../../helper/firebaseSerializer";
-import firebase from "../../firebase";
 
 interface Tag {
   id: string;
@@ -14,23 +12,21 @@ interface Tag {
 interface Props {
   ids?: string[];
   hasInput?: boolean;
+  data?: {}[];
 }
 
 const Tags: React.FC<Props> = (props) => {
   const [tags, setTags] = useState<Tag[]>();
 
   useEffect(() => {
-      const tagsRef = firebase.database().ref("tags");
-      tagsRef.on("value", (snap) => {
-        const serialized = firebaseSerializer(snap.val());
-        const filteredByKey: any[] = serialized.filter((data) =>
-          props.ids?.includes(data.id)
-        );
-        setTags(!props.ids ? serialized : filteredByKey);
-      });
-  }, [props.ids]);
-
-  if (!tags) return null;
+    if (!!props.data) {
+      const castedData = props.data as Tag[];
+      const filteredByKey = castedData.filter((tag) =>
+        props.ids?.includes(tag.id)
+      );
+      setTags(!props.ids ? castedData : filteredByKey);
+    }
+  }, [props.ids, props.data]);
 
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
