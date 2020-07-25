@@ -49,8 +49,17 @@ const AppRoutes = () => {
         >
           <Route path="/" element={<Home />} />
         </DataLoaderContext.Provider>
-        <Route path="/createNote/:bookId" element={<CreateNote />} />
-        <Route path="/editNote" element={<EditNote />} />
+        <DataLoaderContext.Provider
+          value={{ notes: [...notes], tags: [...tags], books: [...books] }}
+        >
+          <Route path="/createNote/:bookId" element={<CreateNote />} />
+        </DataLoaderContext.Provider>
+        <DataLoaderContext.Provider
+          value={{ notes: [...notes], tags: [...tags], books: [...books] }}
+        >
+          <Route path="/editNote" element={<EditNote />} />
+        </DataLoaderContext.Provider>
+
         <Route path="*" element={<p>Not found</p>} />
       </Routes>
     </BrowserRouter>

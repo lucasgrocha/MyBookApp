@@ -1,13 +1,12 @@
-import React, { FormEvent, useState, useEffect } from "react";
+import React, { FormEvent, useState, useEffect, useContext } from "react";
 import NotesService from "../../services/NotesService";
 import { useParams, useNavigate } from "react-router-dom";
 import { FormBox, StyledForm } from "./styles";
 import TagsSelector from "./TagsSelector";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import Spinner from "../../components/UI/Spinner";
-import firebaseSerializer from "../../helper/firebaseSerializer";
 import Loading from "../../components/UI/Loading";
-import firebase from "../../firebase";
+import dataLoaderContext from "../../context/dataLoaderContext";
 
 interface FormData {
   read: string;
@@ -24,13 +23,14 @@ interface Tag {
 }
 
 const CreateNote = () => {
+  const dataContext = useContext(dataLoaderContext);
   const navigate = useNavigate();
 
   const { bookId } = useParams();
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
   const [read, setRead] = useState("");
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [tags] = useState<Tag[]>(dataContext.tags as Tag[]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [formData, setFormData] = useState<FormData>({
     read: "",
@@ -40,14 +40,6 @@ const CreateNote = () => {
     tags: [],
   });
   const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    const tagsRef = firebase.database().ref("tags");
-    tagsRef.on("value", (snap) => {
-      const serialized = firebaseSerializer(snap.val());
-      setTags(serialized);
-    });
-  }, []);
 
   const handleSelectedTag = (tagId: string) => {
     if (!selectedTags?.includes(tagId)) {
