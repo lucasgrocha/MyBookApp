@@ -13,8 +13,11 @@ const AppRoutes = () => {
   const [notes, setNotes] = useState<any[]>();
   const [tags, setTags] = useState<any[]>();
 
+  const tagsRef = firebase.database().ref("tags");
+  const notesRef = firebase.database().ref("notes");
+  const booksRef = firebase.database().ref("books");
+
   useEffect(() => {
-    const notesRef = firebase.database().ref("notes");
     notesRef.on("value", (snap) => {
       const serialized = firebaseSerializer(snap.val());
       setNotes(serialized);
@@ -22,7 +25,6 @@ const AppRoutes = () => {
   }, []);
 
   useEffect(() => {
-    const booksRef = firebase.database().ref("books");
     booksRef.on("value", (snap) => {
       const serialized = firebaseSerializer(snap.val());
       setBooks(serialized);
@@ -30,23 +32,24 @@ const AppRoutes = () => {
   }, []);
 
   useEffect(() => {
-    const tagsRef = firebase.database().ref("tags");
     tagsRef.on("value", (snap) => {
       const serialized = firebaseSerializer(snap.val());
       setTags(serialized);
     });
   }, []);
 
-
   if (!notes || !tags || !books) {
-    return <Loading />
+    return <Loading />;
+  } else {
+    booksRef.off("value");
+    notesRef.off("value");
   }
 
   return (
     <BrowserRouter>
       <Routes>
         <DataLoaderContext.Provider
-          value={{ notes: [...notes], rates: [], tags: [...tags], books: [...books] }}
+          value={{ notes: [...notes], tags: [...tags], books: [...books] }}
         >
           <Route path="/" element={<Home />} />
         </DataLoaderContext.Provider>
