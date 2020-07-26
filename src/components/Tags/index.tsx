@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Tag from "./Tag";
 import TextInput from "../TextInput";
 import TagsServices from "../../services/TagsService";
+import firebase from "../../firebase";
 
 interface Tag {
   id: string;
@@ -18,6 +19,11 @@ interface Props {
 const Tags: React.FC<Props> = (props) => {
   const [tags, setTags] = useState<Tag[]>();
 
+  const addTag = (userInput: string, color: string) => {
+    const notesRef = firebase.database().ref("tags");
+    notesRef.push({ name: userInput, color: color });
+  };
+
   useEffect(() => {
     if (!!props.data) {
       const castedData = props.data as Tag[];
@@ -33,7 +39,7 @@ const Tags: React.FC<Props> = (props) => {
       {tags?.map((tag) => (
         <Tag color={tag.color} id={tag.id} name={tag.name} key={tag.id} />
       ))}
-      {props.hasInput && <TextInput submitAction={TagsServices.create} />}
+      {props.hasInput && <TextInput submitAction={addTag} />}
     </div>
   );
 };
