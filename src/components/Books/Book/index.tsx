@@ -11,7 +11,7 @@ interface Props {
 
 const Book: React.FC<Props> = (props) => {
   return (
-    <StyledLink to={`createNote/${props.id}`} style={{ marginBottom: "10px" }}>
+    <StyledLink to={'createNote'} state={{book_id: props.id}} style={{ marginBottom: "10px" }}>
       <Cover src={props.image_url} alt={props.title} />
       <div>
         <Title title={props.title}>{props.title}</Title>

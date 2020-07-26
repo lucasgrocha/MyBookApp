@@ -14,7 +14,7 @@ const AppRoutes = () => {
   const [tags, setTags] = useState<any[]>([]);
   const paths = {
     home: "/",
-    createNote: "/createNote/:bookId",
+    createNote: "/createNote",
     editNote: "/editNote",
   };
   const currentPath = window.location.pathname;

@@ -1,18 +1,18 @@
 import React, { FormEvent, useState, useEffect, useContext } from "react";
-import NotesService from "../../services/NotesService";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FormBox, StyledForm } from "./styles";
 import TagsSelector from "./TagsSelector";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import Spinner from "../../components/UI/Spinner";
 import Loading from "../../components/UI/Loading";
 import dataLoaderContext from "../../context/dataLoaderContext";
+import firebase from '../../firebase'
 
 interface FormData {
   read: string;
   summary: string;
   description: string;
-  book_id: number;
+  book_id: string;
   tags: string[];
 }
 
@@ -26,7 +26,7 @@ const CreateNote = () => {
   const dataContext = useContext(dataLoaderContext);
   const navigate = useNavigate();
 
-  const { bookId } = useParams();
+  const [passedProps] = useState(window.history.state.usr);
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
   const [read, setRead] = useState("");
@@ -36,7 +36,7 @@ const CreateNote = () => {
     read: "",
     summary: "",
     description: "",
-    book_id: Number(bookId),
+    book_id: passedProps.book_id,
     tags: [],
   });
   const [submitted, setSubmitted] = useState(false);
@@ -66,7 +66,7 @@ const CreateNote = () => {
     setFormData((prevState) => ({ ...prevState, description }));
   }, [description]);
 
-  const handleSubmit = async (evt: FormEvent) => {
+  const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
 
     if (invalidData()) {
@@ -79,12 +79,12 @@ const CreateNote = () => {
       navigate("/", { replace: true });
     }
 
-    const response = await NotesService.create(formData);
+    cleanUpInputs()
 
-    if (response.status === 200) {
-      cleanUpInputs();
+    const notesRef = firebase.database().ref("notes");
+    notesRef.push({ ...formData }).then(() => {
       redirectToRoot();
-    }
+    });
   };
 
   const invalidData = () => Object.values(formData).includes("");
