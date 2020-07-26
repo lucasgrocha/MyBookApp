@@ -30,7 +30,7 @@ const CreateNote = () => {
   const [summary, setSummary] = useState("");
   const [description, setDescription] = useState("");
   const [read, setRead] = useState("");
-  const [tags] = useState<Tag[]>(dataContext.tags as Tag[]);
+  const [tags, setTags] = useState<Tag[]>(dataContext.tags as Tag[]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [formData, setFormData] = useState<FormData>({
     read: "",
@@ -110,6 +110,7 @@ const CreateNote = () => {
   };
 
   if (tags.length === 0) {
+    setTags(JSON.parse(sessionStorage.getItem('tags') || ''))
     return <Spinner />;
   }
 

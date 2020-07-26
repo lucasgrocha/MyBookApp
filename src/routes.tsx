@@ -9,9 +9,15 @@ import firebaseSerializer from "./helper/firebaseSerializer";
 import Loading from "./components/UI/Loading";
 
 const AppRoutes = () => {
-  const [books, setBooks] = useState<any[]>([]);
-  const [notes, setNotes] = useState<any[]>([]);
-  const [tags, setTags] = useState<any[]>([]);
+  const [books, setBooks] = useState<any[]>(
+    JSON.parse(sessionStorage.getItem("books") || "[]")
+  );
+  const [notes, setNotes] = useState<any[]>(
+    JSON.parse(sessionStorage.getItem("notes") || "[]")
+  );
+  const [tags, setTags] = useState<any[]>(
+    JSON.parse(sessionStorage.getItem("tags") || "[]")
+  );
   const paths = {
     home: "/",
     createNote: "/createNote",
@@ -52,6 +58,10 @@ const AppRoutes = () => {
 
   if (notes.length + tags.length + books.length === 0 && validPath) {
     return <Loading />;
+  } else {
+    sessionStorage.setItem("notes", JSON.stringify(notes));
+    sessionStorage.setItem("tags", JSON.stringify(tags));
+    sessionStorage.setItem("books", JSON.stringify(books));
   }
 
   return (

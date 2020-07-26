@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Tag from "./Tag";
 import TextInput from "../TextInput";
-import TagsServices from "../../services/TagsService";
 import firebase from "../../firebase";
 
 interface Tag {
