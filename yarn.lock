@@ -1688,6 +1688,14 @@
     "@babel/runtime" "^7.10.3"
     "@styled-icons/styled-icon" "^10.6.0"
 
+"@styled-icons/fa-regular@^10.10.0":
+  version "10.10.0"
+  resolved "https://registry.yarnpkg.com/@styled-icons/fa-regular/-/fa-regular-10.10.0.tgz#b56f0ae42f3c8b00bcd885a773c293669d5e0d2e"
+  integrity sha512-Z/OhrFPogzXDK7UXgqRBqyjzlrJUK/AybY8mB9fpNM9jcLtjj7vCPA/eeO6/WcjL/2RkJvC6OJekrP3IjtjdUA==
+  dependencies:
+    "@babel/runtime" "^7.10.4"
+    "@styled-icons/styled-icon" "^10.6.0"
+
 "@styled-icons/ionicons-outline@^10.6.0":
   version "10.6.0"
   resolved "https://registry.yarnpkg.com/@styled-icons/ionicons-outline/-/ionicons-outline-10.6.0.tgz#87a5b79b941c5f8ce295b8a994697696cbe1f129"

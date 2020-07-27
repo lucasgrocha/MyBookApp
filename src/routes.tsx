@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import CreateNote from "./pages/CreateNote";
 import EditNote from "./pages/EditNote";
 import DataLoader from "./hoc/dataLoader";
+import NotFound from "./pages/NotFound";
 
 const AppRoutes = () => {
   const paths = {
@@ -25,7 +26,7 @@ const AppRoutes = () => {
           <Route path={paths.editNote} element={<EditNote />} />
         </DataLoader>
 
-        <Route path="*" element={<p>Not found</p>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
