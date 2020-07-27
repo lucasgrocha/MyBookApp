@@ -23,7 +23,7 @@ const Notes: React.FC<Props> = (props) => {
   }, [props.data]);
 
   return (
-    <>
+    <div style={{ height: "calc(100vh - 67px)", overflow: "auto" }}>
       {notes?.map((note) => (
         <Note
           read={note.read}
@@ -35,7 +35,7 @@ const Notes: React.FC<Props> = (props) => {
           book_id={note.book_id}
         />
       ))}
-    </>
+    </div>
   );
 };
 

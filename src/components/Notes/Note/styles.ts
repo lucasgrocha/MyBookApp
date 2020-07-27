@@ -25,7 +25,7 @@ export const NoteBox = styled.div`
 
 export const StyledLink = styled(Link)`
   display: flex;
-  width: 100%;
+  width: 99%;
   padding: 8px 5px;
   color: black;
   position: relative;

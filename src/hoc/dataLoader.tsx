@@ -27,7 +27,7 @@ const DataLoader: React.FC = (props) => {
       const notesRef = firebase.database().ref("notes");
       notesRef.on("value", (snap) => {
         const serialized = firebaseSerializer(snap.val());
-        setNotes(serialized);
+        setNotes(serialized.reverse());
       });
     }
   }, [validPath]);
