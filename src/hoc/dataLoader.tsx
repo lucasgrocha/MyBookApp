@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import CreateNote from "./pages/CreateNote";
-import EditNote from "./pages/EditNote";
-import firebase from "./firebase";
-import firebaseSerializer from "./helper/firebaseSerializer";
-import Loading from "./components/UI/Loading";
-import DataLoader from "./hoc/dataLoader";
+import DataLoaderContext from "../context/dataLoaderContext";
+import firebase from "../firebase";
+import firebaseSerializer from "../helper/firebaseSerializer";
+import Loading from "../components/UI/Loading";
 
-const AppRoutes = () => {
+const DataLoader: React.FC = (props) => {
   const [books, setBooks] = useState<any[]>(
     JSON.parse(sessionStorage.getItem("books") || "[]")
   );
@@ -65,22 +61,12 @@ const AppRoutes = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <DataLoader>
-          <Route path={paths.home} element={<Home />} />
-        </DataLoader>
-        <DataLoader>
-          <Route path={paths.createNote} element={<CreateNote />} />
-        </DataLoader>
-        <DataLoader>
-          <Route path={paths.editNote} element={<EditNote />} />
-        </DataLoader>
-
-        <Route path="*" element={<p>Not found</p>} />
-      </Routes>
-    </BrowserRouter>
+    <DataLoaderContext.Provider
+      value={{ notes: [...notes], tags: [...tags], books: [...books] }}
+    >
+      {props.children}
+    </DataLoaderContext.Provider>
   );
 };
 
-export default AppRoutes;
+export default DataLoader;
