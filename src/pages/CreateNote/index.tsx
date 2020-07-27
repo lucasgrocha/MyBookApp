@@ -6,7 +6,7 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import Spinner from "../../components/UI/Spinner";
 import Loading from "../../components/UI/Loading";
 import dataLoaderContext from "../../context/dataLoaderContext";
-import firebase from '../../firebase'
+import firebase from "../../firebase";
 
 interface FormData {
   read: string;
@@ -79,7 +79,7 @@ const CreateNote = () => {
       navigate("/", { replace: true });
     }
 
-    cleanUpInputs()
+    cleanUpInputs();
 
     const notesRef = firebase.database().ref("notes");
     notesRef.push({ ...formData }).then(() => {
@@ -110,7 +110,7 @@ const CreateNote = () => {
   };
 
   if (tags.length === 0) {
-    setTags(JSON.parse(sessionStorage.getItem('tags') || ''))
+    setTags(JSON.parse(sessionStorage.getItem("tags") || ""));
     return <Spinner />;
   }
 
@@ -161,11 +161,20 @@ const CreateNote = () => {
               </Col>
             </Row>
           </Container>
-          <TagsSelector
-            tags={tags}
-            selectedTags={selectedTags}
-            clicked={handleSelectedTag}
-          />
+          <div
+            style={{
+              backgroundColor: "white",
+              height: "150px",
+              overflow: "auto",
+              marginBottom: "20px",
+            }}
+          >
+            <TagsSelector
+              tags={tags}
+              selectedTags={selectedTags}
+              clicked={handleSelectedTag}
+            />
+          </div>
           <Button type="submit">Save</Button>
         </StyledForm>
       </FormBox>

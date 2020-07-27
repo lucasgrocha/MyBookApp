@@ -166,11 +166,20 @@ const EditNote = () => {
             </Row>
           </Container>
           {!!tags ? (
+            <div
+            style={{
+              backgroundColor: "white",
+              height: "150px",
+              overflow: "auto",
+              marginBottom: "20px",
+            }}
+          >
             <TagsSelector
               tags={tags}
               selectedTags={selectedTags}
               clicked={handleSelectedTag}
             />
+            </div>
           ) : null}
           <Button type="submit">Save</Button>
         </StyledForm>
