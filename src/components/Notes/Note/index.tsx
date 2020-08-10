@@ -14,7 +14,7 @@ interface NoteProps {
 }
 
 const Note: React.FC<NoteProps> = (props) => {
-  const dataContext = useContext(dataLoaderContext)
+  const dataContext = useContext(dataLoaderContext);
 
   return (
     <StyledLink to={{ pathname: "editNote" }} state={{ ...props }}>

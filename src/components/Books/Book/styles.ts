@@ -28,7 +28,6 @@ export const StyledLink = styled(Link)`
   }
 
   @media screen and (max-width: 700px) {
-    width: 60%;
     margin: auto auto;
   }
 `

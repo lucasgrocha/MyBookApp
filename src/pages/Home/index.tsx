@@ -13,7 +13,7 @@ const StyledTitle = styled.h3`
 `;
 
 const Home = () => {
-  const dataContext = useContext(DataLoaderContext)
+  const dataContext = useContext(DataLoaderContext);
 
   return (
     <>
@@ -24,7 +24,7 @@ const Home = () => {
         </div>
         <div className={[classes.Notes, classes.Item].join(" ")}>
           <StyledTitle>Notes</StyledTitle>
-          <Notes data={dataContext.notes}/>
+          <Notes data={dataContext.notes} />
         </div>
         <div className={[classes.Tags, classes.Item].join(" ")}>
           <StyledTitle>Tags</StyledTitle>
